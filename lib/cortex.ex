@@ -6,24 +6,25 @@ defmodule Cortex do
   def start_link do
     {:ok, neuron} = Neuron.start_link
     {:ok, actuator} = Actuator.start_link
-    metadata = %{:self => self(), :neuron => neuron, :actuator => actuator}
-    Task.start_link(fn -> loop(metadata) end)
+    pids = %{:self => self(), :neuron => neuron, :actuator => actuator}
+    Task.start_link(fn -> loop(pids) end)
   end
 
-  defp loop(metadata) do
+  defp loop(pids) do
     receive do
 
         #This will generate random input to be sent to the actuator.
       {:sense} ->
-        input = [1,1,1]#[Enum.random(0..1), Enum.random(0..1), (Enum.random(0..100))/100]
-        Map.put(metadata, :input, input)
+        input = [Enum.random(0..1), Enum.random(0..1), (Enum.random(0..100))/100]
+        metadata = Map.put(pids, :input, input)
         Sense.input(metadata[:neuron], metadata)
-        loop(metadata)
+        loop(pids)
 
         #Some test code to make sure the metadata is being utilized properly.
       {:feedback} ->
-        send metadata[:self], {:ok, :thisworks}
-        loop(metadata)
+        metadata = Map.put(pids, :msg, "hellomichael")
+        send metadata[:self], {:ok, metadata}
+        loop(pids)
     end
   end
 end

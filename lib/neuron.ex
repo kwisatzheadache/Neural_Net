@@ -17,11 +17,9 @@ defmodule Neuron do
 
   defp loop(weights) do
     receive do
-      #Currently the dot product isn't working, so I've commented it out
-      #until I figure out why the vectors aren't equal lengths. 
-      {:ok, metadata} -> #self, neuron, actuator, input} -> #tuple is sensor label, pid, and [i1, i2] vector
-       # dot_product = Vector.dot_product(metadata[:input], weights)
-        output = :thisisworking # :math.tanh(dot_product)
+      {:ok, metadata} -> 
+        dot_product = Vector.dot_product(metadata[:input], weights)
+        output = :math.tanh(dot_product)
       send metadata[:actuator], {:doesthiswork, output, metadata}
       loop(weights)
     end
