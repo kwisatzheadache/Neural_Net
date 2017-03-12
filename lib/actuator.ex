@@ -12,9 +12,10 @@ defmodule Actuator do
 
   defp loop(threshold) do
     receive do
-      {:doesthiswork, output, self_pid} ->
-        final = output
-    send self_pid, {:actuator_firing, output}
+      {:doesthiswork, output, metadata} ->
+        #final = output
+        #while the dotproduct is inoperable, I'm just using test statements
+    send metadata[:self], {:actuator_firing, output, metadata}
     loop(threshold)
     end
   end

@@ -12,7 +12,7 @@ defmodule Create do
     {:ok, actuator} = Actuator.start_link
   end
 
-  def sensor() do
-    {:ok, sensor} = Sensor.start_link
+  def cortex() do
+    {:ok, cortex} = Cortex.start_link
   end
 end
