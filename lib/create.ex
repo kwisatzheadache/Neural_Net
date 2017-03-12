@@ -16,9 +16,3 @@ defmodule Create do
     {:ok, sensor} = Sensor.start_link
   end
 end
-
-defmodule Sense do
-  def input(input, neuron, map) do
-    send neuron, {map, input}
-  end
-end

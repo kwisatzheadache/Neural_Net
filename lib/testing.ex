@@ -1,3 +1,4 @@
+#Just playing around with processes and getting them to communicate.
 defmodule KV do
   def start_link do
     Task.start_link(fn -> loop(%{}) end)
