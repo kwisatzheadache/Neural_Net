@@ -5,11 +5,13 @@ defmodule Actuator do
   format: {:doesthiswork, output, self_pid}. The final output is sent
   to the iex process, along with the atom - :actuator_firing.
   """
+
+
+  @doc """
+  threshold is an arbitrary value. Not sure if I need to
+  have it in there. It's a placeholder so the loop function works.
+  """
   def start_link do
-    @doc """
-    threshold is an arbitrary value. Not sure if I need to
-    have it in there. It's a placeholder so the loop function works.
-    """
     threshold = 5
     Task.start_link(fn ->loop(threshold) end)
   end
