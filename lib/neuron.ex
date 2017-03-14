@@ -11,7 +11,8 @@ defmodule Neuron do
 
 
   def start_link do
-    weights = [Enum.random(0..100)/100, Enum.random(0..100)/100, Enum.random(0..100)/100]
+    #weights = [w1, w2, w3, bias]
+    weights = [Enum.random(100..100)/100, Enum.random(100..100)/100, Enum.random(100..100)/100, Enum.random(0..100)/100]
     Task.start_link(fn -> loop(weights) end)
   end
 
@@ -20,7 +21,7 @@ defmodule Neuron do
       {:ok, metadata} -> 
         dot_product = Vector.dot_product(metadata[:input], weights)
         output = :math.tanh(dot_product)
-      send metadata[:actuator], {:doesthiswork, output, metadata}
+      send metadata[:actuator], {:ok, output, metadata}
       loop(weights)
     end
   end

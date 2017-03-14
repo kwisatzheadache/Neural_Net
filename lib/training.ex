@@ -1,0 +1,2 @@
+defmodule Training do
+end

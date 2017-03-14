@@ -14,8 +14,9 @@ defmodule Cortex do
     receive do
 
         #This will generate random input to be sent to the actuator.
-      {:sense} ->
-        input = [Enum.random(0..1), Enum.random(0..1), (Enum.random(0..100))/100]
+      {:sense, input} ->
+        #input is [i1, i2, i3, 1] where 1 is to allow for bias
+        #input = [Enum.random(0..1), Enum.random(0..1), (Enum.random(0..100))/100]
         metadata = Map.put(pids, :input, input)
         Sense.input(metadata[:neuron], metadata)
         loop(pids)

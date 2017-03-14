@@ -6,18 +6,18 @@ defmodule Actuator do
   to the iex process, along with the atom - :actuator_firing.
   """
   def start_link do
-    @doc """
-    threshold is an arbitrary value. Not sure if I need to
-    have it in there. It's a placeholder so the loop function works.
-    """
     threshold = 5
     Task.start_link(fn ->loop(threshold) end)
   end
 
   defp loop(threshold) do
     receive do
-      {:doesthiswork, output, metadata} ->
-        final = output
+      {:ok, output, metadata} ->
+        final = 
+          case output do
+            output when output < 0 -> :x_is_1 
+            _ -> :x_is_0
+          end
     send metadata[:self], {:actuator_firing, output, final, metadata}
     loop(threshold)
     end
