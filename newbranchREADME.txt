@@ -11,7 +11,8 @@ For now, I'm just going to implement a simple training and fitness algorithm
 on a single neuron NN. The next stage involves rewriting my initial NN app
 to include the following ideas:
 
--Neuron generation according to layers and density. This will require that each neuron is automatically added to a bucket (see agents and bucked on the 
+-Neuron generation according to layers and density. This will require that each 
+neuron is automatically added to a bucket (see agents and bucked on the 
 elixir guides) so that each layer can then accept input from other layers, etc
 rather than specifying the connections by pid. They'll be connected to the 
 process containing all pid information.
